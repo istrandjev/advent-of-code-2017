@@ -46,10 +46,11 @@ int get_weight(const map<string, node>& graph, const string& node_name) {
     }
     return result;
 }
-pair<string, int> solve_part2(const map<string, node>& graph, const string& node_name) {
+const int inf = -100000;
+int solve_part2(const map<string, node>& graph, const string& node_name) {
     auto it = graph.find(node_name);
     if (it->second.children.size() == 0) {
-        return {"", -1};
+        return inf;
     }
 
     set<int> weights;
@@ -63,22 +64,22 @@ pair<string, int> solve_part2(const map<string, node>& graph, const string& node
     }
 
     if (weights.size() == 1) {
-        return {"", -1};
+        return inf;
     }
     weights.erase(repeated);
     for (auto c : it->second.children) {
         int w = get_weight(graph, c);
         if (w != repeated) {
-            pair<string, int> temp = solve_part2(graph, c);
-            if (temp.first != "") {
+            int temp = solve_part2(graph, c);
+            if (temp != inf) {
                 return temp;
             } else {
                 auto v_it = graph.find(c);
-                return {c, v_it->second.number - (w - repeated)};
+                return v_it->second.number - (w - repeated);
             }
         }
     }
-    return {"$$$$", -100000};
+    return inf;
 }
 
 int main() {
@@ -112,6 +113,6 @@ int main() {
         }
     }
     cout << "Part 1 " << root << endl;
-    cout << "Part 2 " << solve_part2(nodes, root).second << endl;
+    cout << "Part 2 " << solve_part2(nodes, root) << endl;
     return 0;
 }
