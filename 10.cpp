@@ -50,10 +50,7 @@ int main() {
     for (auto c : original_input) {
         lengths.push_back((int)c);
     }       
-    vector<int> always_add{17, 31, 73, 47, 23};
-    for (auto aa : always_add) {
-        lengths.push_back(aa);
-    }
+    lengths.insert(lengths.end(), {17, 31, 73, 47, 23});
     int current = 0, skip_size = 0;
     for (int round = 0; round < 64; ++round) {
         for (int il = 0; il < (int)lengths.size(); current = (current + lengths[il] + skip_size) % limit, ++il, skip_size++) {
