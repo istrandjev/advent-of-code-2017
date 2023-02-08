@@ -62,8 +62,6 @@ vector<string> flip_patch(const vector<string>& patch) {
     return result;
 }
 bool match(const vector<string>& patch, const vector<string>& pattern) {
-
-
     vector<string> current = patch;
     for (int flip = 0; flip < 2; ++flip) {
         for (int rotation = 0; rotation < 4; ++rotation) {
